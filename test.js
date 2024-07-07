@@ -1,5 +1,8 @@
 const Database = require("./index");
-const db = new Database();
+const db = new Database('db.json', {
+    key: 'goober123',
+    showWarnings: false
+});
 
 db.set("a", "b");
 console.log(db.get("a")); // b

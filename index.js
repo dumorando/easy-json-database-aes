@@ -1,4 +1,6 @@
 const fs = require("fs");
+const Cryptr = require("cryptr");
+require("colors");
 
 const setNestedProperty = (object, key, value) => {
     const properties = key.split('.');
@@ -50,6 +52,18 @@ module.exports = class EasyJsonDB {
          */
         this.options = options || {};
 
+        let warningtext = 'easy-json-database-aes: File Ends with JSON, recommended to change ending to JSON-AES.';
+        if (!this.jsonFilePath.endsWith(".json-aes") && this.options.showWarnings !== false) {
+            console.warn(" ".repeat(warningtext.length +2).bgYellow.black);
+            console.warn(` ${warningtext} `.bgYellow.black);
+            console.warn(" ".repeat(warningtext.length +2).bgYellow.black);
+            console.log("\n");
+        };
+
+        if (!this.options.key) throw new Error('AES Key not provided. Please provide it in options.key.');
+
+        this.encryptmodule = new Cryptr(this.options.key);
+
         if (this.options.snapshots && this.options.snapshots.enabled) {
             const path = this.options.snapshots.path || './backups/';
             if (!fs.existsSync(path)) {
@@ -67,7 +81,7 @@ module.exports = class EasyJsonDB {
         this.data = {};
 
         if(!fs.existsSync(this.jsonFilePath)){
-            fs.writeFileSync(this.jsonFilePath, "{}", "utf-8");
+            fs.writeFileSync(this.jsonFilePath, this.encryptmodule.encrypt("{}"), "utf-8");
         } else {
             this.fetchDataFromFile();
         }
@@ -90,7 +104,7 @@ module.exports = class EasyJsonDB {
      * Get data from the json file and store it in the data property.
      */
     fetchDataFromFile(){
-        const savedData = JSON.parse(fs.readFileSync(this.jsonFilePath));
+        const savedData = JSON.parse(this.encryptmodule.decrypt(fs.readFileSync(this.jsonFilePath)));
         if(typeof savedData === "object"){
             this.data = savedData;
         }
@@ -100,7 +114,7 @@ module.exports = class EasyJsonDB {
      * Write data to the json file.
      */
     saveDataToFile(){
-        fs.writeFileSync(this.jsonFilePath, JSON.stringify(this.data, null, 2), "utf-8");
+        fs.writeFileSync(this.jsonFilePath, this.encryptmodule.encrypt(JSON.stringify(this.data)), "utf-8");
     }
 
     /**

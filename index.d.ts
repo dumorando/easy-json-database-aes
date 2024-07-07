@@ -8,6 +8,8 @@ declare module 'easy-json-database' {
 
     interface DatabaseOptions {
         snapshots?: SnapshotsOptions;
+        key: string;
+        showWarnings?: boolean;
     };
 
     interface DatabaseElement {

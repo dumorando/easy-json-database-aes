@@ -1,10 +1,15 @@
 {
-    "name": "easy-json-database",
-    "version": "1.5.1",
-    "description": "Easy database using json",
-    "main": "index.js",
-    "repository": "git+https://github.com/Androz2091/easy-json-database.git",
-    "author": "Androz2091 <androz2091@gmail.com>",
-    "license": "MIT",
-    "typings": "./index.d.ts"
+  "name": "easy-json-database-aes",
+  "version": "1.5.1",
+  "description": "Easy database using json, encrypted with AES.",
+  "main": "index.js",
+  "repository": "git+https://github.com/dumorando/easy-json-database-aes.git",
+  "author": "Dumorando <dumorando@proton.me>",
+  "_comment": "idk wehter or not i should keep androz2091 in ther but im uploading to npm so ima play it safeer",
+  "license": "MIT",
+  "typings": "./index.d.ts",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cryptr": "^6.3.0"
+  }
 }
