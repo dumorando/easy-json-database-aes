@@ -1,17 +1,19 @@
 # Easy Json Database
 
-This database is used for the **[Scratch For Discord](https://github.com/Androz2091/scratch-for-discord)** project.
+This database is used for the **[Scratch For Discord](https://github.com/Androz2091/scratch-for-discord)** project.<br />
+Forked from [Easy-Json-Database](https://npm.im/easy-json-database).
 
 ## Example
 
 ```js
 const Database = require("easy-json-database");
-const db = new Database("./some-database.json", {
+const db = new Database("./some-database.json-aes", {
     snapshots: {
         enabled: true,
         interval: 24 * 60 * 60 * 1000,
         folder: './backups/'
-    }
+    },
+    key: '12341234'
 });
 
 // Set data
@@ -38,4 +40,6 @@ db.clear();
 
 // Get all the data
 db.all();
+
+// And it's all encrypted!
 ```
