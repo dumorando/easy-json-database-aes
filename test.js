@@ -1,7 +1,6 @@
 const Database = require("./index");
-const db = new Database('db.json', {
-    key: 'goober123',
-    showWarnings: false
+const db = new Database('db.json-aes', {
+    key: 'goober123'
 });
 
 db.set("a", "b");
