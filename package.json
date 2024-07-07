@@ -3,7 +3,10 @@
   "version": "1.5.1-0",
   "description": "Easy database using json, encrypted with AES.",
   "main": "index.js",
-  "repository": "git+https://github.com/dumorando/easy-json-database-aes.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dumorando/easy-json-database-aes.git"
+  },
   "author": "Dumorando <dumorando@proton.me>",
   "_comment": "idk wehter or not i should keep androz2091 in ther but im uploading to npm so ima play it safeer",
   "license": "MIT",
